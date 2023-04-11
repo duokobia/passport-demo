@@ -31,6 +31,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 //TO-DO
 // Bcrypt code block not working
+// Use MVC model for this project
 
 passport.use(
     new LocalStrategy(async(username, password, done) => {
@@ -148,7 +149,6 @@ const authMiddleware = (req, res, next) => {
 }
 
 // Routes
-
 app.get("/", (req, res) => {
   let messages = [];
   if (req.session.messages) {
@@ -174,19 +174,6 @@ app.get('/restricted', authMiddleware, (req, res) => {
   }
   res.render('restricted', { pageCount: req.session.pageCount });
 })
-
-// app.post("/sign-up", async (req, res, next) => {
-//     try {
-//       const user = new User({
-//         username: req.body.username,
-//         password: req.body.password
-//       });
-//       const result = await user.save();
-//       res.redirect("/");
-//     } catch(err) {
-//       return next(err);
-//     };
-// });
 
 app.post("/sign-up", async (req, res, next) => {
   try {
